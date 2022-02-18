@@ -1,4 +1,4 @@
-package com.example.demo;
+package de.uslu;
 
 import java.util.Arrays;
 import java.util.List;
