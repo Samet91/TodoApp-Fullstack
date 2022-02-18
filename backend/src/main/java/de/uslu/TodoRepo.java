@@ -1,5 +1,8 @@
 package de.uslu;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class TodoRepo {
 
     private int id;
