@@ -21,5 +21,15 @@ public class TodoService {
         todoRepo.createTodo(todo);
     }
 
+    public void setCompleted(String id) {
+       todoRepo.list().stream()
+                .filter(i -> i.getId().equals(id))
+                .forEach(todo -> todo.setCompleted(true));
+
+    }
+
+    public void deleteTodoItem(String id) {
+
+    }
 
 }
