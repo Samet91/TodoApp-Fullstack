@@ -19,4 +19,11 @@ public class TodoRepo {
         todos.put(todo.getId(),todo);
     }
 
+    public Todo getById(String id) {
+        return todos.get(id);
+    }
+
+    public void deleteTodo(String id) {
+        todos.remove(id);
+    }
 }

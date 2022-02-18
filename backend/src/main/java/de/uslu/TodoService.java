@@ -21,5 +21,15 @@ public class TodoService {
         todoRepo.createTodo(todo);
     }
 
+    public void setCompleted(String id) {
+        var foundTodo = todoRepo.getById(id);
+            foundTodo.setCompleted(true);
+            todoRepo.createTodo(foundTodo);
+    }
+
+        public void deleteTodoItem(String id) {
+            todoRepo.deleteTodo(id);
+    }
+
 
 }
