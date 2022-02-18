@@ -22,14 +22,14 @@ public class TodoService {
     }
 
     public void setCompleted(String id) {
-       todoRepo.list().stream()
-                .filter(i -> i.getId().equals(id))
-                .forEach(todo -> todo.setCompleted(true));
-
+        var foundTodo = todoRepo.getById(id);
+            foundTodo.setCompleted(true);
+            todoRepo.createTodo(foundTodo);
     }
 
-    public void deleteTodoItem(String id) {
-
+        public void deleteTodoItem(String id) {
+            todoRepo.deleteTodo(id);
     }
+
 
 }
