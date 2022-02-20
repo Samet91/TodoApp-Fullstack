@@ -14,10 +14,6 @@ class TodoServiceTest {
     @Test
     void shouldAddNewTodo() {
 
-        //given
-//        todos.put("1", new Todo());
-//        todos.put("2", new Todo());
-//        todos.put("3", new Todo());
         TodoRepo todoRepo = new TodoRepo();
         TodoService todoService = new TodoService(todoRepo);
 
@@ -27,7 +23,20 @@ class TodoServiceTest {
         Collection<Todo> actual = todoService.list();
         assertTrue(actual.size() == 2);
 
+    }
 
+    @Test
+    void shouldSetTodoCompleted() {
+
+        TodoRepo todoRepo = new TodoRepo();
+        Todo todo = new Todo("lernen", false);
+        todoRepo.createTodo(todo);
+        TodoService todoService = new TodoService(todoRepo);
+
+
+        todoService.setCompleted(todo.getId());
+
+        assertTrue(todoService.getId(todo.getId()).isCompleted());
     }
 
 }

@@ -25,11 +25,11 @@ public class TodoController {
         return todoService.list();
     }
 
-
     @PutMapping("/{id}")
     public void completed(@PathVariable String id) {
         todoService.setCompleted(id);
     }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
         todoService.deleteTodoItem(id);
