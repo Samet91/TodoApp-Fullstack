@@ -33,10 +33,25 @@ class TodoServiceTest {
         todoRepo.createTodo(todo);
         TodoService todoService = new TodoService(todoRepo);
 
-
         todoService.setCompleted(todo.getId());
 
         assertTrue(todoService.getId(todo.getId()).isCompleted());
+    }
+
+    @Test
+    void shouldDeleteTodoItem() {
+
+        TodoRepo todoRepo = new TodoRepo();
+        Todo todo = new Todo("lernen", false);
+        todoRepo.createTodo(todo);
+
+        TodoService todoService = new TodoService(todoRepo);
+
+        todoService.deleteTodoItem(todo.getId());
+
+        Collection<Todo> actual = todoService.list();
+
+        assertTrue(actual.size() == 0);
     }
 
 }
