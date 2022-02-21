@@ -54,4 +54,20 @@ class TodoServiceTest {
         assertTrue(actual.size() == 0);
     }
 
+    @Test
+    void shouldReturnAllTodos() {
+
+        TodoRepo todoRepo = new TodoRepo();
+        Todo todo = new Todo("lernen", false);
+        Todo todo1 = new Todo("schreiben", false);
+        todoRepo.createTodo(todo);
+        todoRepo.createTodo(todo1);
+
+        TodoService todoService = new TodoService(todoRepo);
+
+        Collection<Todo> actual = todoService.list();
+
+        assertEquals(actual, todoService.list());
+    }
+
 }
