@@ -6,6 +6,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/todo")
+@CrossOrigin
 public class TodoController {
 
     private final TodoService todoService;
