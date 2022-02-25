@@ -27,9 +27,12 @@ public class TodoService {
             todoRepo.createTodo(foundTodo);
     }
 
+    public Todo getId(String id) {
+        return todoRepo.getById(id);
+    }
+
         public void deleteTodoItem(String id) {
             todoRepo.deleteTodo(id);
     }
-
 
 }
