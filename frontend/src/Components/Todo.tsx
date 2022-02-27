@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { TodoProps } from "../model";
+import TodoItem from "./TodoItem";
 
 export default function Todo() {
   const [title, setTitle] = useState("");
@@ -18,17 +19,41 @@ export default function Todo() {
   useEffect(() => {
     fetchData();
   }, []);
+  console.log(items);
 
   return (
     <div>
+      <input
+        type="text"
+        placeholder="title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="title"
+        value={description}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <input
+        type="radio"
+        placeholder="title"
+        value={completed}
+        onChange={(e) => setTitle(e.target.value)}
+      />
       <button onClick={() => fetchData("http://localhost:8080/todo")}>
         Alle Neuen Todos
       </button>
-      <button onClick={() => fetchData("http://localhost:8080/todo")}>
-        Alle
-      </button>
+     
 
-      {items}
+      <div>
+        {items.map((todo) => (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+          />
+        ))}
+      </div>
     </div>
   );
 }

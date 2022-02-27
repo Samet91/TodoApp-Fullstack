@@ -1,16 +1,24 @@
+import { TodoProps } from "../model";
 
-type todoItemProps = {
-  title: string;
-  description: string;
-  completed: boolean;
-};
+export default function TodoItem(props: TodoProps) {
+  
+    const deleteTodo = () => {
+      fetch(`http://localhost:8080/todos/${props.id}`, {
+        method: "DELETE",
+      }).then((response) => props.onItemChange());
+      
 
-export default function TodoItem(todoItemProps: todoItemProps) {
+    };
+  
+
   return (
+
+    
+
     <div>
-      <h3>{todoItemProps.title}</h3>
-      <p>{todoItemProps.description}</p>
-      <p>{todoItemProps.completed}</p>
+      <h3>{props.title}</h3>
+      <p>{props.description}</p>
+      <p>{props.completed}</p>
     </div>
   );
 }
