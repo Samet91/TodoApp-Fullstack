@@ -1,4 +1,5 @@
 import { TodoProps } from "../model";
+import styled from "styled-components";
 
 export default function TodoItem(props: TodoProps) {
   const deleteTodo = () => {
@@ -8,11 +9,28 @@ export default function TodoItem(props: TodoProps) {
   };
 
   return (
-    <div>
-      <h3>{props.title}</h3>
-      <p>{props.description}</p>
-      <p>{props.completed}</p>
+    <Card>
+      <Title>{props.title}</Title>
+      <Description>{props.description}</Description>
+      <Completed>{props.completed}</Completed>
       <button onClick={() => deleteTodo()}>delete</button>
-    </div>
+    </Card>
   );
 }
+
+const Card = styled.div`
+  border: solid 2px;
+  margin: 5px;
+`
+
+const Title = styled.h3`
+  margin: 5px;
+`
+
+const Description = styled.p`
+  margin: 5px;
+`
+
+const Completed = styled.p`
+  margin: 5px;
+`
