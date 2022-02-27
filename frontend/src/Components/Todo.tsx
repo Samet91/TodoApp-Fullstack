@@ -8,6 +8,10 @@ export default function Todo() {
   const [completed, setCompleted] = useState(false);
   const [items, setItems] = useState([] as Array<TodoProps>);
 
+  useEffect(() => {
+    fetchData();
+}, []);
+
   const fetchData = (url: string = "http://localhost:8080/todo") => {
     fetch(url)
       .then((response) => response.json())
@@ -16,10 +20,7 @@ export default function Todo() {
       });
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-  console.log(items);
+  
 
   return (
     <div>
@@ -31,29 +32,35 @@ export default function Todo() {
       />
       <input
         type="text"
-        placeholder="title"
+        placeholder="description"
         value={description}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e) => setDescription(e.target.value)}
       />
       <input
-        type="radio"
-        placeholder="title"
-        value={completed}
-        onChange={(e) => setTitle(e.target.value)}
+        type="checkbox"
+        checked={completed}
+        onChange={() => setCompleted(!completed)}
       />
       <button onClick={() => fetchData("http://localhost:8080/todo")}>
         Alle Neuen Todos
       </button>
-     
 
       <div>
         {items.map((todo) => (
           <TodoItem
-            key={todo.id}
-            todo={todo}
+            title={todo.title}
+            description={todo.description}
+            completed={false}
+            onItemChange={fetchData}
           />
+          
         ))}
+        
+        
       </div>
+      
+      
     </div>
+    
   );
 }
