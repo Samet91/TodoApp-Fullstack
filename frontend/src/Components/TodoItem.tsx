@@ -4,7 +4,7 @@ export default function TodoItem(props: TodoProps) {
   const deleteTodo = () => {
     fetch(`http://localhost:8080/todos/${props.id}`, {
       method: "DELETE",
-    }).then((response) => props.onItemChange());
+    }).then(response => props.onItemChange());
   };
 
   return (

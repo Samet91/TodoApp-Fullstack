@@ -10,7 +10,7 @@ export default function Todo() {
 
   useEffect(() => {
     fetchData();
-}, []);
+  }, []);
 
   const fetchData = (url: string = "http://localhost:8080/todo") => {
     fetch(url)
@@ -20,7 +20,19 @@ export default function Todo() {
       });
   };
 
-  
+  const newItem = () => {
+    fetch(`http:localhost:8080/todo`, {
+      method: "POST",
+      body: JSON.stringify({
+        title: title,
+        description: description,
+        completed: completed,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
 
   return (
     <div>
@@ -30,6 +42,7 @@ export default function Todo() {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+      <button onClick={() => newItem()}>title</button>
       <input
         type="text"
         placeholder="description"
@@ -48,19 +61,14 @@ export default function Todo() {
       <div>
         {items.map((todo) => (
           <TodoItem
+          key={todo.id}
             title={todo.title}
             description={todo.description}
             completed={false}
             onItemChange={fetchData}
           />
-          
         ))}
-        
-        
       </div>
-      
-      
     </div>
-    
   );
 }
