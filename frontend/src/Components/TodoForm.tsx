@@ -8,7 +8,6 @@ interface TodoFormProps {
 export default function TodoForm(todo: TodoFormProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [completed, setCompleted] = useState(false);
 
   const addTodo = () => {
     fetch("http://localhost:8080/todo", {
@@ -19,7 +18,6 @@ export default function TodoForm(todo: TodoFormProps) {
       body: JSON.stringify({
         title: title,
         description: description,
-        completed: completed,
       }),
     })
       .then((response) => response.json())
@@ -27,6 +25,7 @@ export default function TodoForm(todo: TodoFormProps) {
         todo.onTodosChange(todosFromBackend)
       );
   };
+
 
   return (
     <div>
@@ -43,11 +42,7 @@ export default function TodoForm(todo: TodoFormProps) {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      <input
-        type="checkbox"
-        checked={completed}
-        onChange={(e) => setCompleted(!completed)}
-      />
+      
       <button onClick={addTodo}>Senden</button>
     </div>
   );

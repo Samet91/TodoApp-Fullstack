@@ -1,5 +1,6 @@
 import { Todo } from "../model";
 import styled from "styled-components";
+import { useState } from "react";
 
 interface TodoItemProps {
   todo: Todo;
@@ -8,28 +9,18 @@ interface TodoItemProps {
 }
 
 export default function TodoItem(props: TodoItemProps) {
+  const [completed, setCompleted] = useState(props.todo.completed);
+
   const deleteTodo = () => {
     fetch(`http://localhost:8080/todo/${props.todo.id}`, {
       method: "DELETE",
     }).then(() => props.onTodoDeletion());
   };
 
-  const toggle = () => {
+  const complete = () => {
     fetch(`http://localhost:8080/todo/${props.todo.id}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: props.todo.title,
-        description: props.todo.description,
-        completed: props.todo.completed,
-      }),
-    })
-      .then((response) => response.json())
-      .then((todosFromBackend: Array<Todo>) =>
-        props.onTodoChange(todosFromBackend)
-      );
+    }).then(() => props.onTodoDeletion());
   };
 
   return (
@@ -37,6 +28,12 @@ export default function TodoItem(props: TodoItemProps) {
       <Title>{props.todo.title}</Title>
       <Description>{props.todo.description}</Description>
       <Completed>{props.todo.completed}</Completed>
+      <input
+        type="checkbox"
+        checked={completed}
+        onChange={(e) => setCompleted(!completed)}
+        onClick={complete}
+      />
       <button onClick={deleteTodo}>delete</button>
     </Card>
   );
