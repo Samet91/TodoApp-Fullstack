@@ -4,26 +4,28 @@ import java.util.UUID;
 
 public class Todo {
 
-    private String todoItem;
-    private String id;
+    private String title;
     private boolean completed;
+    private String description;
+    private String id;
 
     public Todo() {
         this.id = UUID.randomUUID().toString();
     }
 
-    public Todo(String todoItem, boolean completed) {
-        this.todoItem = todoItem;
+    public Todo(String title, boolean completed, String description) {
+        this.title = title;
         this.completed = completed;
         this.id = UUID.randomUUID().toString();
+        this.description = description;
     }
 
-    public String getTodoItem() {
-        return todoItem;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTodoItem(String todoItem) {
-        this.todoItem = todoItem;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getId() {
@@ -40,5 +42,13 @@ public class Todo {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
