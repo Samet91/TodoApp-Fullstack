@@ -26,7 +26,6 @@ export default function TodoForm(todo: TodoFormProps) {
       );
   };
 
-
   return (
     <div>
       <input
@@ -42,7 +41,7 @@ export default function TodoForm(todo: TodoFormProps) {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      
+
       <button onClick={addTodo}>Senden</button>
     </div>
   );

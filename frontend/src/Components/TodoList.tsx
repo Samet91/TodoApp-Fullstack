@@ -18,18 +18,28 @@ export default function TodoList() {
     fetchData();
   }, []);
 
+  const deleteTodo = () => {
+    fetch(`http://localhost:8080/todo/`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((responseBody) => setItems(responseBody));
+  };
 
   return (
     <div>
-      <TodoForm onTodosChange={setItems} /> 
-      <button onClick={() => fetchData("http://localhost:8080/todo")} >
+      <TodoForm onTodosChange={setItems} />
+      <button onClick={() => fetchData("http://localhost:8080/todo")}>
         Alle Neuen Todos
       </button>
-
+      <button onClick={deleteTodo}>deleteAllCompleted</button>
       <div>
         {items.map((todo) => (
           <TodoItem
-            key={todo.id} todo={todo} onTodoDeletion={fetchData} onTodoChange={setItems}
+            key={todo.id}
+            todo={todo}
+            onTodoDeletion={fetchData}
+            onTodoChange={setItems}
           />
         ))}
       </div>
