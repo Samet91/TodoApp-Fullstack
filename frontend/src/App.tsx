@@ -1,5 +1,4 @@
-import React from "react";
-import Todo from "./Components/Todo";
+import Todo from "./Components/TodoList";
 
 function App() {
   return (
