@@ -1,4 +1,4 @@
-export interface TodoProps {
+export interface Todo {
   id?: string;
   title: string;
   description: string;
@@ -7,5 +7,5 @@ export interface TodoProps {
 }
 
 export interface Response {
-    results: Array<TodoProps>
+    results: Array<Todo>
 }
