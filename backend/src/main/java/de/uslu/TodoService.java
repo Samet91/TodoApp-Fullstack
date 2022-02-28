@@ -35,4 +35,12 @@ public class TodoService {
             todoRepo.deleteTodo(id);
     }
 
+    public void deleteCompletedTodos() {
+        var list = todoRepo.list().stream().filter(e -> e.isCompleted())
+                .toList();
+        for (Todo todo: list) {
+            todoRepo.list().remove(todo);
+        }
+    }
+
 }

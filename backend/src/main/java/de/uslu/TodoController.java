@@ -36,4 +36,11 @@ public class TodoController {
         todoService.deleteTodoItem(id);
     }
 
+    @DeleteMapping()
+    public Collection<Todo> deleteAllCompletedTodos() {
+        todoService.deleteCompletedTodos();
+        return todoService.list();
+    }
+
+
 }
