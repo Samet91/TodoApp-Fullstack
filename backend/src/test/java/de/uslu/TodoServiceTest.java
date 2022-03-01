@@ -33,7 +33,7 @@ class TodoServiceTest {
         todoRepo.createTodo(todo);
         TodoService todoService = new TodoService(todoRepo);
 
-        todoService.setCompleted(todo.getId());
+        todoService.setComplete(todo.getId());
 
         assertTrue(todoService.getId(todo.getId()).isCompleted());
     }
