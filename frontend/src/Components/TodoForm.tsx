@@ -24,6 +24,8 @@ export default function TodoForm(todo: TodoFormProps) {
       .then((todosFromBackend: Array<Todo>) =>
         todo.onTodosChange(todosFromBackend)
       );
+    setTitle("");
+    setDescription("");
   };
 
   return (
