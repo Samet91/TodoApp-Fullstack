@@ -27,8 +27,9 @@ public class TodoController {
     }
 
     @PutMapping("/{id}")
-    public void completed(@PathVariable String id) {
-        todoService.setCompleted(id);
+    public Collection<Todo> changeTodo(@PathVariable String id, @RequestBody Todo todo) {
+        todoService.setCompleted(id, todo);
+        return todoService.list();
     }
 
     @DeleteMapping("/{id}")
