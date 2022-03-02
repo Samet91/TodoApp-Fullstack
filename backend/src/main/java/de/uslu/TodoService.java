@@ -21,9 +21,16 @@ public class TodoService {
         todoRepo.createTodo(todo);
     }
 
-    public void setCompleted(String id) {
+    public void setComplete(String id) {
+        var foundTodo = todoRepo.getById(id);
+        foundTodo.setCompleted(true);
+    }
+
+    public void setCompleted(String id, Todo changedTodo) {
         var foundTodo = todoRepo.getById(id);
             foundTodo.setCompleted(true);
+            foundTodo.setTitle(changedTodo.getTitle());
+            foundTodo.setDescription(changedTodo.getDescription());
             todoRepo.createTodo(foundTodo);
     }
 

@@ -10,6 +10,11 @@ interface TodoItemProps {
 
 export default function TodoItem(props: TodoItemProps) {
   const [completed, setCompleted] = useState(props.todo.completed);
+  const [titleToEdit, setTitleToEdit] = useState(props.todo.title);
+  const [descriptionToEdit, setDescriptionToEdit] = useState(
+    props.todo.description
+  );
+  const [editMode, setEditMode] = useState(false);
 
   const deleteTodo = () => {
     fetch(`http://localhost:8080/todo/${props.todo.id}`, {
@@ -23,10 +28,67 @@ export default function TodoItem(props: TodoItemProps) {
     }).then(() => props.onTodoDeletion());
   };
 
+  const fetchToEdit = (todo: Todo) => {
+    fetch(`http://localhost:8080/todo/${props.todo.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(todo),
+    })
+      .then((response) => response.json())
+      .then((todosFromBackend: Array<Todo>) => {
+        props.onTodoChange(todosFromBackend);
+        setEditMode(false);
+      });
+  };
+
+  const editTodo = () => {
+    fetchToEdit({
+      id: props.todo.id,
+      title: titleToEdit,
+      description: descriptionToEdit,
+      completed: props.todo.completed,
+    });
+  };
+
+  const toggle = () => {
+    const isCompleted = !props.todo.completed;
+    fetchToEdit({
+      id: props.todo.id,
+      title: props.todo.title,
+      description: props.todo.description,
+      completed: isCompleted,
+    });
+  };
+
   return (
     <Card>
-      <Title>{props.todo.title}</Title>
-      <Description>{props.todo.description}</Description>
+      {editMode ? (
+        <div>
+          <input
+            type="text"
+            value={titleToEdit}
+            onChange={(e) => setTitleToEdit(e.target.value)}
+          />
+          <div>
+            <input
+              type="text"
+              value={descriptionToEdit}
+              onChange={(e) => setDescriptionToEdit(e.target.value)}
+            />
+
+            <button onClick={() => editTodo()}>Edit</button>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <Title>{props.todo.title}</Title>
+          <Description>{props.todo.description}</Description>
+          <button onClick={() => setEditMode(true)}>edit</button>
+        </div>
+      )}
+
       <Completed>{props.todo.completed}</Completed>
       <input
         type="checkbox"
