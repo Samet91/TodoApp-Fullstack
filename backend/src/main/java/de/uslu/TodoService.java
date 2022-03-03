@@ -27,7 +27,7 @@ public class TodoService {
     }
 
     public void setCompleted(String id, Todo changedTodo) {
-        var foundTodo = todoRepo.getById(id);
+        Todo foundTodo = todoRepo.getById(id);
             foundTodo.setCompleted(true);
             foundTodo.setTitle(changedTodo.getTitle());
             foundTodo.setDescription(changedTodo.getDescription());
