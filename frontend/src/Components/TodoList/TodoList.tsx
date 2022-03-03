@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { t } from "i18next";
+import { useEffect, useState } from "react";
 import { Todo } from "../../model";
 import TodoForm from "../TodoForm/TodoForm";
 import TodoItem from "../TodoItem/TodoItem";
@@ -6,7 +7,9 @@ import TodoItem from "../TodoItem/TodoItem";
 export default function TodoList() {
   const [items, setItems] = useState([] as Array<Todo>);
 
-  const fetchData = (url: string = `${process.env.REACT_APP_BASE_URL}/todo`) => {
+  const fetchData = (
+    url: string = `${process.env.REACT_APP_BASE_URL}/todo`
+  ) => {
     fetch(url)
       .then((response) => response.json())
       .then((responseBody: Array<Todo>) => {
@@ -14,9 +17,9 @@ export default function TodoList() {
       });
   };
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const deleteTodo = () => {
     fetch(`${process.env.REACT_APP_BASE_URL}/todo/`, {
@@ -29,10 +32,12 @@ export default function TodoList() {
   return (
     <div>
       <TodoForm onTodosChange={setItems} />
-      <button onClick={() => fetchData(`${process.env.REACT_APP_BASE_URL}/todo`)}>
+      <button
+        onClick={() => fetchData(`${process.env.REACT_APP_BASE_URL}/todo`)}
+      >
         Alle Neuen Todos
       </button>
-      <button onClick={deleteTodo}>deleteAllCompleted</button>
+      <button onClick={deleteTodo}>{t("buttonLabelClear")}</button>
       <div>
         {items.map((todo) => (
           <TodoItem

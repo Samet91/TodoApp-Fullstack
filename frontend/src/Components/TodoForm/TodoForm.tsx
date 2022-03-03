@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Todo } from "../../model";
 
 interface TodoFormProps {
@@ -8,6 +9,8 @@ interface TodoFormProps {
 export default function TodoForm(todo: TodoFormProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+
+  const { t } = useTranslation();
 
   const addTodo = () => {
     fetch(`${process.env.REACT_APP_BASE_URL}/todo`, {
@@ -44,7 +47,7 @@ export default function TodoForm(todo: TodoFormProps) {
         onChange={(e) => setDescription(e.target.value)}
       />
 
-      <button onClick={addTodo}>Senden</button>
+      <button onClick={addTodo}>{t('buttonSend')}</button>
     </div>
   );
 }
