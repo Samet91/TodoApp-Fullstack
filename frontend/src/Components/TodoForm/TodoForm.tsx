@@ -6,7 +6,7 @@ interface TodoFormProps {
   onTodosChange: (todo: Array<Todo>) => void;
 }
 
-export default function TodoForm(todo: TodoFormProps) {
+export default function TodoForm(props: TodoFormProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -25,7 +25,7 @@ export default function TodoForm(todo: TodoFormProps) {
     })
       .then((response) => response.json())
       .then((todosFromBackend: Array<Todo>) =>
-        todo.onTodosChange(todosFromBackend)
+        props.onTodosChange(todosFromBackend)
       );
     setTitle("");
     setDescription("");
@@ -47,7 +47,7 @@ export default function TodoForm(todo: TodoFormProps) {
         onChange={(e) => setDescription(e.target.value)}
       />
 
-      <button onClick={addTodo}>{t('buttonSend')}</button>
+      <button onClick={addTodo}>{t("buttonSend")}</button>
     </div>
   );
 }

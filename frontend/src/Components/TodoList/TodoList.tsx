@@ -32,11 +32,7 @@ export default function TodoList() {
   return (
     <div>
       <TodoForm onTodosChange={setItems} />
-      <button
-        onClick={() => fetchData(`${process.env.REACT_APP_BASE_URL}/todo`)}
-      >
-        Alle Neuen Todos
-      </button>
+    
       <button onClick={deleteTodo}>{t("buttonLabelClear")}</button>
       <div>
         {items.map((todo) => (

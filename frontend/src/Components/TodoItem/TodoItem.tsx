@@ -23,7 +23,7 @@ export default function TodoItem(props: TodoItemProps) {
   };
 
   const complete = () => {
-    fetch(`${process.env.REACT_APP_BASE_URL}/todo/${props.todo.id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/todo/complete/${props.todo.id}`, {
       method: "PUT",
     }).then(() => props.onTodoDeletion());
   };
