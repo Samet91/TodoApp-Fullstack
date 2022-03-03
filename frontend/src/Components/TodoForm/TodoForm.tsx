@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Todo } from "../model";
+import { Todo } from "../../model";
 
 interface TodoFormProps {
   onTodosChange: (todo: Array<Todo>) => void;
@@ -10,7 +10,7 @@ export default function TodoForm(todo: TodoFormProps) {
   const [description, setDescription] = useState("");
 
   const addTodo = () => {
-    fetch("http://localhost:8080/todo", {
+    fetch(`${process.env.REACT_APP_BASE_URL}/todo`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

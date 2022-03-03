@@ -1,4 +1,4 @@
-import { Todo } from "../model";
+import { Todo } from "../../model";
 import styled from "styled-components";
 import { useState } from "react";
 
@@ -17,19 +17,19 @@ export default function TodoItem(props: TodoItemProps) {
   const [editMode, setEditMode] = useState(false);
 
   const deleteTodo = () => {
-    fetch(`http://localhost:8080/todo/${props.todo.id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/todo/${props.todo.id}`, {
       method: "DELETE",
     }).then(() => props.onTodoDeletion());
   };
 
   const complete = () => {
-    fetch(`http://localhost:8080/todo/${props.todo.id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/todo/${props.todo.id}`, {
       method: "PUT",
     }).then(() => props.onTodoDeletion());
   };
 
   const fetchToEdit = (todo: Todo) => {
-    fetch(`http://localhost:8080/todo/${props.todo.id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/todo/${props.todo.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -52,15 +52,15 @@ export default function TodoItem(props: TodoItemProps) {
     });
   };
 
-  const toggle = () => {
-    const isCompleted = !props.todo.completed;
-    fetchToEdit({
-      id: props.todo.id,
-      title: props.todo.title,
-      description: props.todo.description,
-      completed: isCompleted,
-    });
-  };
+  // const toggle = () => {
+  //   const isCompleted = !props.todo.completed;
+  //   fetchToEdit({
+  //     id: props.todo.id,
+  //     title: props.todo.title,
+  //     description: props.todo.description,
+  //     completed: isCompleted,
+  //   });
+  // };
 
   return (
     <Card>
@@ -78,7 +78,9 @@ export default function TodoItem(props: TodoItemProps) {
               onChange={(e) => setDescriptionToEdit(e.target.value)}
             />
 
-            <button onClick={() => editTodo()}>Edit</button>
+            <span>
+              <button onClick={() => editTodo()}>Edit</button>
+            </span>
           </div>
         </div>
       ) : (

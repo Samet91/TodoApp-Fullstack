@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { Todo } from "../model";
-import TodoForm from "./TodoForm";
-import TodoItem from "./TodoItem";
+import { useState } from "react";
+import { Todo } from "../../model";
+import TodoForm from "../TodoForm/TodoForm";
+import TodoItem from "../TodoItem/TodoItem";
 
 export default function TodoList() {
   const [items, setItems] = useState([] as Array<Todo>);
 
-  const fetchData = (url: string = "http://localhost:8080/todo") => {
+  const fetchData = (url: string = `${process.env.REACT_APP_BASE_URL}/todo`) => {
     fetch(url)
       .then((response) => response.json())
       .then((responseBody: Array<Todo>) => {
@@ -14,12 +14,12 @@ export default function TodoList() {
       });
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const deleteTodo = () => {
-    fetch(`http://localhost:8080/todo/`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/todo/`, {
       method: "DELETE",
     })
       .then((response) => response.json())
@@ -29,7 +29,7 @@ export default function TodoList() {
   return (
     <div>
       <TodoForm onTodosChange={setItems} />
-      <button onClick={() => fetchData("http://localhost:8080/todo")}>
+      <button onClick={() => fetchData(`${process.env.REACT_APP_BASE_URL}/todo`)}>
         Alle Neuen Todos
       </button>
       <button onClick={deleteTodo}>deleteAllCompleted</button>
