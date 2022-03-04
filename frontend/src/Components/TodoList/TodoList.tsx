@@ -6,15 +6,24 @@ import TodoItem from "../TodoItem/TodoItem";
 
 export default function TodoList() {
   const [items, setItems] = useState([] as Array<Todo>);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const fetchData = (
     url: string = `${process.env.REACT_APP_BASE_URL}/todo`
   ) => {
     fetch(url)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+        throw new Error(
+          "Fehler beim ermitteln der Daten. statuscode: " + response.status
+        );
+      })
       .then((responseBody: Array<Todo>) => {
         setItems(responseBody);
-      });
+      })
+      .catch((e) => setErrorMessage(e.message));
   };
 
   useEffect(() => {
@@ -32,17 +41,12 @@ export default function TodoList() {
   return (
     <div>
       <TodoForm onTodosChange={setItems} />
-    
       <button onClick={deleteTodo}>{t("buttonLabelClear")}</button>
       <div>
         {items.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onTodoDeletion={fetchData}
-            onTodoChange={setItems}
-          />
+          <TodoItem key={todo.id} todo={todo} onTodoDeletion={fetchData} />
         ))}
+        {errorMessage}
       </div>
     </div>
   );
