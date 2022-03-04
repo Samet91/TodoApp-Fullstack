@@ -26,9 +26,21 @@ public class TodoController {
         return todoService.list();
     }
 
+    @GetMapping("/{id}")
+    public Todo getOneTodo(@PathVariable String id) {
+         todoService.getId(id);
+         return todoService.getTodo(id);
+    }
+
     @PutMapping("/{id}")
     public Collection<Todo> changeTodo(@PathVariable String id, @RequestBody Todo todo) {
         todoService.setCompleted(id, todo);
+        return todoService.list();
+    }
+
+    @PutMapping("/complete/{id}")
+    public Collection<Todo> completeTodo(@PathVariable String id) {
+        todoService.setComplete(id);
         return todoService.list();
     }
 

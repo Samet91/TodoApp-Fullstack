@@ -28,7 +28,6 @@ public class TodoService {
 
     public void setCompleted(String id, Todo changedTodo) {
         Todo foundTodo = todoRepo.getById(id);
-            foundTodo.setCompleted(true);
             foundTodo.setTitle(changedTodo.getTitle());
             foundTodo.setDescription(changedTodo.getDescription());
             todoRepo.createTodo(foundTodo);
@@ -38,7 +37,7 @@ public class TodoService {
         return todoRepo.getById(id);
     }
 
-        public void deleteTodoItem(String id) {
+    public void deleteTodoItem(String id) {
             todoRepo.deleteTodo(id);
     }
 
@@ -50,4 +49,7 @@ public class TodoService {
         }
     }
 
+    public Todo getTodo(String id) {
+        return todoRepo.getById(id);
+    }
 }

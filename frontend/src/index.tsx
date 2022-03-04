@@ -4,11 +4,21 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import "./i18n";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import TodoList from "./Components/TodoList/TodoList";
+import Edit from "./Components/Edit/Edit";
 
 ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback="Loading...">
-      <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="TodoList" element={<TodoList />} />
+          <Route path="TodoList/:todoId" element={<Edit />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
     </Suspense>
   </React.StrictMode>,
   document.getElementById("root")
