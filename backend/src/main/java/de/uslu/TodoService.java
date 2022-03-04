@@ -37,7 +37,7 @@ public class TodoService {
         return todoRepo.getById(id);
     }
 
-        public void deleteTodoItem(String id) {
+    public void deleteTodoItem(String id) {
             todoRepo.deleteTodo(id);
     }
 
@@ -49,4 +49,7 @@ public class TodoService {
         }
     }
 
+    public Todo getTodo(String id) {
+        return todoRepo.getById(id);
+    }
 }
