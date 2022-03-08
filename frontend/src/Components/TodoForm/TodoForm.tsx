@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Todo } from "../../model";
 
@@ -7,8 +7,10 @@ interface TodoFormProps {
 }
 
 export default function TodoForm(props: TodoFormProps) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState(localStorage.getItem("title") ?? "");
+  const [description, setDescription] = useState(
+    localStorage.getItem("desc") ?? ""
+  );
 
   const { t } = useTranslation();
 
@@ -30,6 +32,11 @@ export default function TodoForm(props: TodoFormProps) {
     setTitle("");
     setDescription("");
   };
+
+  useEffect(() => {
+    localStorage.setItem("title", title);
+    localStorage.setItem("desc", description);
+  }, [title, description]);
 
   return (
     <div>
