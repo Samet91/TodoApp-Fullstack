@@ -1,54 +1,19 @@
 package de.uslu;
 
-import java.util.UUID;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
+@Data
+@NoArgsConstructor
 public class Todo {
 
+    @Id
+    private String id;
     private String title;
     private boolean completed;
     private String description;
-    private String id;
 
-    public Todo() {
-        this.id = UUID.randomUUID().toString();
-    }
-
-    public Todo(String title, boolean completed, String description) {
-        this.title = title;
-        this.completed = completed;
-        this.id = UUID.randomUUID().toString();
-        this.description = description;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

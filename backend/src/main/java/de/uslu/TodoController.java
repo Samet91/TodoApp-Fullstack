@@ -18,7 +18,7 @@ public class TodoController {
     @PostMapping
     public Collection<Todo> createTodo(@RequestBody Todo todo) {
         todoService.createTodo(todo);
-        return list();
+        return todoService.list();
     }
 
     @GetMapping
@@ -28,7 +28,6 @@ public class TodoController {
 
     @GetMapping("/{id}")
     public Todo getOneTodo(@PathVariable String id) {
-         todoService.getId(id);
          return todoService.getTodo(id);
     }
 

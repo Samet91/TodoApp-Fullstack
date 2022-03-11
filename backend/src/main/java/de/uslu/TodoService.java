@@ -1,55 +1,61 @@
 package de.uslu;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class TodoService {
 
     private final TodoRepo todoRepo;
 
-    public TodoService(TodoRepo todoRepo) {
-        this.todoRepo = todoRepo;
-    }
-
     public Collection<Todo> list() {
-        return todoRepo.list();
+        return todoRepo.findAll();
     }
 
     public void createTodo(Todo todo) {
-        todoRepo.createTodo(todo);
+        todoRepo.save(todo);
     }
 
-    public void setComplete(String id) {
-        var foundTodo = todoRepo.getById(id);
-        foundTodo.setCompleted(true);
+    public Optional<Todo> setComplete(String id) {
+        var foundTodo = todoRepo.findById(id);
+        if (foundTodo.isPresent()) {
+            foundTodo.get().setCompleted(true);
+        }
+        return null;
     }
 
     public void setCompleted(String id, Todo changedTodo) {
-        Todo foundTodo = todoRepo.getById(id);
-            foundTodo.setTitle(changedTodo.getTitle());
-            foundTodo.setDescription(changedTodo.getDescription());
-            todoRepo.createTodo(foundTodo);
+        var foundTodo = todoRepo.findById(id);
+            if (foundTodo.isPresent()) {
+               Todo newTodo = foundTodo.get();
+                newTodo.setTitle(changedTodo.getTitle());
+                newTodo.setDescription(changedTodo.getDescription());
+                todoRepo.save(newTodo);
+        }
     }
 
-    public Todo getId(String id) {
-        return todoRepo.getById(id);
-    }
 
     public void deleteTodoItem(String id) {
-            todoRepo.deleteTodo(id);
+        todoRepo.deleteById(id);
     }
 
     public void deleteCompletedTodos() {
-        var list = todoRepo.list().stream().filter(e -> e.isCompleted())
+        var list = todoRepo.findAll().stream().filter(e -> e.isCompleted())
                 .toList();
         for (Todo todo: list) {
-            todoRepo.list().remove(todo);
+            todoRepo.findAll().remove(todo);
         }
     }
 
     public Todo getTodo(String id) {
-        return todoRepo.getById(id);
+        var foundTodo =  todoRepo.findById(id);
+        if (foundTodo.isPresent()) {
+           return foundTodo.get();
+        }
+        return new Todo();
     }
 }

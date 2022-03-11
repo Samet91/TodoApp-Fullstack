@@ -1,29 +1,13 @@
 package de.uslu;
 
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.List;
 
 @Repository
-public class TodoRepo {
+public interface TodoRepo extends MongoRepository<Todo, String> {
 
-    private final HashMap<String,Todo> todos = new HashMap<>();
+    List<Todo> findByTitle(String title);
 
-
-    public Collection<Todo> list() {
-        return todos.values();
-    }
-
-    public void createTodo(Todo todo) {
-        todos.put(todo.getId(),todo);
-    }
-
-    public Todo getById(String id) {
-        return todos.get(id);
-    }
-
-    public void deleteTodo(String id) {
-        todos.remove(id);
-    }
 }
