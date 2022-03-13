@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,8 +17,8 @@ public class TodoService {
         return todoRepo.findAll();
     }
 
-    public void createTodo(Todo todo) {
-        todoRepo.save(todo);
+    public Todo createTodo(Todo todo) {
+         return todoRepo.save(todo);
     }
 
     public Optional<Todo> setComplete(String id) {
@@ -57,5 +58,9 @@ public class TodoService {
            return foundTodo.get();
         }
         return new Todo();
+    }
+
+    public List<Todo> findAllCompleted() {
+        return todoRepo.findAllByCompleted(true);
     }
 }
