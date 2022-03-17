@@ -1,4 +1,4 @@
-package de.uslu;
+package de.uslu.todo;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,8 +13,8 @@ public class TodoService {
 
     private final TodoRepo todoRepo;
 
-    public Collection<Todo> list() {
-        return todoRepo.findAll();
+    public Collection<Todo> list(String username) {
+        return todoRepo.findAllByUsername(username);
     }
 
     public Todo createTodo(Todo todo) {
@@ -40,15 +40,15 @@ public class TodoService {
     }
 
 
-    public void deleteTodoItem(String id) {
-        todoRepo.deleteById(id);
+    public void deleteTodoItem(String id, String username) {
+        todoRepo.deleteByIdAndUsername(id, username);
     }
 
-    public void deleteCompletedTodos() {
-        var list = todoRepo.findAll().stream().filter(e -> e.isCompleted())
+    public void deleteCompletedTodos(String username) {
+        var list = todoRepo.findAllByUsername(username).stream().filter(e -> e.isCompleted())
                 .toList();
         for (Todo todo: list) {
-            todoRepo.findAll().remove(todo);
+            todoRepo.findAllByUsername(username).remove(todo);
         }
     }
 
@@ -60,7 +60,7 @@ public class TodoService {
         return new Todo();
     }
 
-    public List<Todo> findAllCompleted() {
-        return todoRepo.findAllByCompleted(true);
+    public List<Todo> findAllCompleted(String username) {
+        return todoRepo.findAllByCompletedAndUsername(true, username);
     }
 }

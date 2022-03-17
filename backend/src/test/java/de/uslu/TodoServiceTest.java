@@ -1,5 +1,8 @@
 package de.uslu;
 
+import de.uslu.todo.Todo;
+import de.uslu.todo.TodoRepo;
+import de.uslu.todo.TodoService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -37,10 +40,10 @@ class TodoServiceTest {
         Todo todo2 = new Todo();
 
         TodoRepo mockRepo = Mockito.mock(TodoRepo.class);
-        Mockito.when(mockRepo.findAll()).thenReturn(List.of(todo1, todo2));
+        Mockito.when(mockRepo.findAllByUsername("user1")).thenReturn(List.of(todo1, todo2));
 
         TodoService todoService = new TodoService(mockRepo);
-        Collection<Todo> actual = todoService.list();
+        Collection<Todo> actual = todoService.list("user1");
 
         Assertions.assertThat(actual.size()).isEqualTo(2);
 
@@ -85,10 +88,10 @@ class TodoServiceTest {
         todo3.setCompleted(false);
 
         TodoRepo mockRepo = Mockito.mock(TodoRepo.class);
-        Mockito.when(mockRepo.findAllByCompleted(true)).thenReturn(List.of(todo1));
+        Mockito.when(mockRepo.findAllByCompletedAndUsername(true, "user1")).thenReturn(List.of(todo1));
 
         TodoService todoService = new TodoService(mockRepo);
-        List<Todo> actual = todoService.findAllCompleted();
+        List<Todo> actual = todoService.findAllCompleted("user1");
 
         Assertions.assertThat(actual.size()).isEqualTo(1);
     }
