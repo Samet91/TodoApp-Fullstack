@@ -1,4 +1,4 @@
-package de.uslu;
+package de.uslu.todo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +15,6 @@ public class Todo {
     private String title;
     private boolean completed;
     private String description;
+    private String username;
 
 }
